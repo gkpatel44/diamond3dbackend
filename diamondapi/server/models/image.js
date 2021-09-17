@@ -11,6 +11,10 @@ var imageSchema = new schema({
     size: { type: String, },
     shape: { type: String, },
     status: { type: String, },
+    filemultipleinput:{
+        data:Buffer,
+        type:Array
+    },
     img: {
         data: Buffer,
         type: String,

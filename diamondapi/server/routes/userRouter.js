@@ -35,7 +35,7 @@ var storage = multer.diskStorage({
         cb(null, DIR)
     },
     filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, file.originalname)
     }
 });
 
@@ -43,7 +43,8 @@ var upload = multer({ storage: storage });
 
 
 Router.post('/getsingleuser', controller.getimages);
-Router.post('/upload', upload.single('img'), controller.createproduct);
+// Router.post('/upload', upload.single('img'), controller.createproduct);
+Router.post ('/upload',upload.array('filemultipleinput', 100),upload.single('img') ,controller.createproduct)
 Router.delete('/delete', controller.deleteproduct);
 Router.put('/update', upload.single('img'), controller.updateproduct);
 Router.get('/allproduct', controller.allproductlist);

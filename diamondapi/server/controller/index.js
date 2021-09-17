@@ -41,7 +41,8 @@ exports.getsingleuserimages = (req, res) => {
 
 exports.createproduct = (req, res) => {
     console.log("createproduct request fetched");
-    console.log(req);
+    
+    console.log(req.files);
     const url = req.protocol + '://' + req.get('host');
     let newproduct = new data({
         orderid: req.body.orderid,
@@ -49,7 +50,9 @@ exports.createproduct = (req, res) => {
         size: req.body.size,
         shape: req.body.shape,
         status: req.body.status,
-        img: url + '/public/' + req.file.filename
+        img: url + '/public/' + req.files[0].filename,
+        filemultipleinput:url + "/public/" +req.files
+        // [0].filename
     })
     newproduct.save().then(result => {
         res.status(201).json({
@@ -60,7 +63,8 @@ exports.createproduct = (req, res) => {
                 size: result.size,
                 shape: result.shape,
                 status: result.status,
-                img: result.img
+                img: result.img,
+                filemultipleinput:result.filemultipleinput
             }
         })
     }).catch(err => {
